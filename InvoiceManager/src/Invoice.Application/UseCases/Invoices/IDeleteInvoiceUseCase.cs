@@ -8,6 +8,6 @@ namespace Invoice.Application.UseCases.Invoices
 {
     public interface IDeleteInvoiceUseCase
     {
-        Task HandleAsync(int invoiceId);
+        Task<bool> HandleAsync(int invoiceId);
     }
 }

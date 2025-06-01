@@ -15,7 +15,7 @@ namespace Invoice.Infrastructure.Persistence
             throw new NotImplementedException();
         }
         
-        public Task DeleteInvoiceAsync(int id)
+        public Task<bool> DeleteInvoiceAsync(int id)
         {
             throw new NotImplementedException();
         }

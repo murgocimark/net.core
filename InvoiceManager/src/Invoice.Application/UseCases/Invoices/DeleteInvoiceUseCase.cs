@@ -14,14 +14,14 @@ namespace Invoice.Application.UseCases.Invoices
         {
             _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
-        public async Task HandleAsync(int invoiceId)
+        public async Task<bool> HandleAsync(int invoiceId)
         {
             if (invoiceId <= 0)
             {
                 throw new ArgumentException("Invoice ID must be greater than zero.", nameof(invoiceId));
             }
 
-            await _invoiceRepo.DeleteInvoiceAsync(invoiceId);
+            return await _invoiceRepo.DeleteInvoiceAsync(invoiceId);
         }
     }
 }

@@ -34,7 +34,7 @@ public class CreateInvoiceUseCaseTests
             }
         };
 
-        await handler.HandleAsync(command);
+        var newInvoiceID = await handler.HandleAsync(command);
         mockRepo.Verify(repo => repo.AddInvoiceAsync(It.Is<Core.Entities.Invoice>(inv =>
             inv.CustomerName == command.CustomerName &&
             inv.InvoiceDate.Date == command.InvoiceDate.Date &&

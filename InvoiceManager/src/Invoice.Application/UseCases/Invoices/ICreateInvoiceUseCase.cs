@@ -8,6 +8,6 @@ namespace Invoice.Application.UseCases.Invoices
 {
     public interface ICreateInvoiceUseCase
     {
-        Task HandleAsync(CreateInvoiceCommand command);
+        Task<int> HandleAsync(CreateInvoiceCommand command);
     }
 }

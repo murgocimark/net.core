@@ -12,6 +12,6 @@ namespace Invoice.Core.Repositories
         Task<IEnumerable<Entities.Invoice>> GetInvoicesAsync();
         Task AddInvoiceAsync(Entities.Invoice invoice);
         Task UpdateInvoiceAsync(Entities.Invoice invoice);
-        Task DeleteInvoiceAsync(int id);        
+        Task<bool> DeleteInvoiceAsync(int id);        
     }
 }

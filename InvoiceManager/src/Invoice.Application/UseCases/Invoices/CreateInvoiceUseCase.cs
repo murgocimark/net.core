@@ -14,7 +14,7 @@ namespace Invoice.Application.UseCases.Invoices
         {
             _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo), "Invoice repository cannot be null.");
         }
-        public async Task HandleAsync(CreateInvoiceCommand command)
+        public async Task<int> HandleAsync(CreateInvoiceCommand command)
         {
             Invoice.Core.Entities.Invoice invoice = new()
             {
@@ -28,6 +28,8 @@ namespace Invoice.Application.UseCases.Invoices
             }
 
             await _invoiceRepo.AddInvoiceAsync(invoice);
+
+            return invoice.Id;
         }
     }
 }
