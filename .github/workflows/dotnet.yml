@@ -26,6 +26,8 @@ jobs:
       run: |
         cd InvoiceManager
         dotnet restore
+    - name: Show current directory
+      run: pwd
     - name: Build
       run: dotnet build --no-restore
     - name: Test
