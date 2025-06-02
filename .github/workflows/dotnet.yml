@@ -19,11 +19,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: install sonar scanner
-        run: dotnet tool install --global dotnet-sonarscanner
 
-      - name: Install ReportGenerator
+      - name: Install tools (SonarScanner, Coverlet, ReportGenerator)
         run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet tool install --global coverlet.console
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.23
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
@@ -43,31 +43,24 @@ jobs:
       - name: Build solution
         run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore
 
-      - name: Run tests with coverage
+      - name: Run unit tests (without coverage)
+        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx --results-directory TestResults
+
+      - name: Run Coverlet to collect Cobertura coverage
         run: |
-          dotnet test InvoiceManager/InvoiceManager.sln \
-            --no-build \
-            --collect:"XPlat Code Coverage" \
-            --results-directory TestResults \
-            --logger "trx;LogFileName=test_results.trx"
+          coverlet ./InvoiceManager/tests/Invoice.Tests/bin/Debug/net8.0/Invoice.Tests.dll \
+            --target "dotnet" \
+            --targetargs "test InvoiceManager/InvoiceManager.sln --no-build" \
+            --format cobertura \
+            --output coverage/coverage.cobertura.xml
 
-
-      - name: Debug:List TestResults
-        run: find . -type f -name "*.xml"      
-
-      - name: Debug coverage output
-        run: find . -type f
-
-
-      - name: Convert coverage to Cobertura
+      - name: Convert Cobertura report to HTML
         run: |
           reportgenerator \
-            -reports:"TestResults/**/coverage.cobertura.xml" \
+            -reports:"coverage/coverage.cobertura.xml" \
             -targetdir:"coverage-report" \
             -reporttypes:Cobertura \
             -verbosity:Info
-
-
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
