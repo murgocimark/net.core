@@ -20,8 +20,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install SonarCloud Scanner
+      - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
       - name: Install ReportGenerator
         run: |
