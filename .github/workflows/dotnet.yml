@@ -30,7 +30,7 @@ jobs:
       run: dotnet test --no-build --configuration Debug --collect:"XPlat Code Coverage" --results-directory TestResults
 
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.12.0
+      uses: SonarSource/sonarcloud-github-action@v5.0.0
       with:
         projectKey: murgocimark_net.core
         organization: murgocimark
