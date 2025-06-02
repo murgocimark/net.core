@@ -37,7 +37,7 @@ jobs:
             /o:"murgocimark" \
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.cs.opencover.reportsPaths="coverage/coverage.cobertura.xml" \
+            /d:sonar.cs.opencover.reportsPaths="coverage/coverage.opencover.xml" \
             /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
 
       - name: Build solution
@@ -46,13 +46,14 @@ jobs:
       - name: Run unit tests (without coverage)
         run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx --results-directory TestResults
 
-      - name: Run Coverlet to collect Cobertura coverage
+      - name: Run Coverlet to collect OpenCover coverage
         run: |
           coverlet ./InvoiceManager/tests/Invoice.Tests/bin/Debug/net8.0/Invoice.Tests.dll \
             --target "dotnet" \
             --targetargs "test InvoiceManager/InvoiceManager.sln --no-build" \
-            --format cobertura \
-            --output coverage/coverage.cobertura.xml
+            --format opencover \
+            --output coverage/coverage.opencover.xml
+
 
       - name: Convert Cobertura report to HTML
         run: |
