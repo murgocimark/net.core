@@ -1,12 +1,5 @@
-name: Build and analyze
-
-on:
-  push:
-    branches: [ main ]
-
 jobs:
   build:
-    name: Build and SonarCloud Analysis
     runs-on: ubuntu-latest
 
     env:
@@ -25,16 +18,15 @@ jobs:
 
       - name: Begin SonarCloud analysis
         run: dotnet sonarscanner begin /k:"murgocimark_net.core" /o:"murgocimark" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        working-directory: InvoiceManager
+
+      - name: Restore dependencies
+        run: dotnet restore InvoiceManager/InvoiceManager.sln
 
       - name: Build
-        run: dotnet build --no-restore
-        working-directory: InvoiceManager
+        run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test --no-build --logger:trx
-        working-directory: InvoiceManager
+        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        working-directory: InvoiceManager
