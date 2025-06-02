@@ -26,7 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Invoice.Api\Invoice.Api.csproj" />
     <ProjectReference Include="..\..\src\Invoice.Application\Invoice.Application.csproj" />
-    <ProjectReference Include="..\..\src\Invoice.Core\Invoice.Core.csproj" />
+    <ProjectReference Include="..\..\src\Invoice.Domain\Invoice.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

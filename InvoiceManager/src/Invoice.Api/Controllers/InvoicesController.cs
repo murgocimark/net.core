@@ -66,7 +66,7 @@ namespace Invoice.Api.Controllers
             };
 
             var createdInvoiceId = await _create.HandleAsync(command);
-            return CreatedAtAction(nameof(Get), new { createdInvoiceId }, null);
+            return CreatedAtAction(nameof(Get), new { id = createdInvoiceId }, createdInvoiceId);
         }
 
         [HttpDelete("{id}")]

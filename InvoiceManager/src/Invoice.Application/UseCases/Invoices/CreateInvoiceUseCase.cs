@@ -1,4 +1,4 @@
-﻿using Invoice.Core.Repositories;
+﻿using Invoice.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Invoice.Application.UseCases.Invoices
         }
         public async Task<int> HandleAsync(CreateInvoiceCommand command)
         {
-            Invoice.Core.Entities.Invoice invoice = new()
+            Invoice.Domain.Entities.Invoice invoice = new()
             {
                 CustomerName = command.CustomerName,
                 InvoiceDate = command.InvoiceDate
@@ -24,12 +24,10 @@ namespace Invoice.Application.UseCases.Invoices
 
             foreach (var item in command.Items)
             {
-                invoice.AddItem(new Core.Entities.InvoiceItem(item.Description, item.Quantity, item.UnitPrice));
+                invoice.AddItem(new Domain.Entities.InvoiceItem(item.Description, item.Quantity, item.UnitPrice));
             }
 
-            await _invoiceRepo.AddInvoiceAsync(invoice);
-
-            return invoice.Id;
+            return await _invoiceRepo.AddInvoiceAsync(invoice);            
         }
     }
 }

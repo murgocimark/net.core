@@ -1,4 +1,4 @@
-using Invoice.Core.Repositories;
+using Invoice.Domain.Repositories;
 using Moq;
 
 namespace Invoice.Tests;
@@ -10,8 +10,8 @@ public class CreateInvoiceUseCaseTests
     public async Task Handle_ShouldCreateInvoice_WithCorrectData()
     {
         var mockRepo = new Mock<IInvoiceRepo>();
-        mockRepo.Setup(repo => repo.AddInvoiceAsync(It.IsAny<Core.Entities.Invoice>()))
-                .Returns(Task.CompletedTask);
+        mockRepo.Setup(repo => repo.AddInvoiceAsync(It.IsAny<Domain.Entities.Invoice>()))
+                .Returns(Task.FromResult(0));
         var handler = new Invoice.Application.UseCases.Invoices.CreateInvoiceUseCase(mockRepo.Object);
         var command = new Invoice.Application.UseCases.Invoices.CreateInvoiceCommand
         {
@@ -35,7 +35,7 @@ public class CreateInvoiceUseCaseTests
         };
 
         var newInvoiceID = await handler.HandleAsync(command);
-        mockRepo.Verify(repo => repo.AddInvoiceAsync(It.Is<Core.Entities.Invoice>(inv =>
+        mockRepo.Verify(repo => repo.AddInvoiceAsync(It.Is<Domain.Entities.Invoice>(inv =>
             inv.CustomerName == command.CustomerName &&
             inv.InvoiceDate.Date == command.InvoiceDate.Date &&
             inv.Items.Count == command.Items.Count &&

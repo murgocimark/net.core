@@ -1,5 +1,5 @@
-﻿using Invoice.Core.Entities;
-using Invoice.Core.Repositories;
+﻿using Invoice.Domain.Entities;
+using Invoice.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Invoice.Infrastructure.Persistence
 {
     public class SqlInvoiceRepo : IInvoiceRepo
     {
-        public Task AddInvoiceAsync(Core.Entities.Invoice invoice)
+        public Task<int> AddInvoiceAsync(Domain.Entities.Invoice invoice)
         {
             throw new NotImplementedException();
         }
@@ -20,17 +20,17 @@ namespace Invoice.Infrastructure.Persistence
             throw new NotImplementedException();
         }
 
-        public Task<Core.Entities.Invoice> GetInvoiceAsync(int id)
+        public Task<Domain.Entities.Invoice> GetInvoiceAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Core.Entities.Invoice>> GetInvoicesAsync()
+        public Task<IEnumerable<Domain.Entities.Invoice>> GetInvoicesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateInvoiceAsync(Core.Entities.Invoice invoice)
+        public Task UpdateInvoiceAsync(Domain.Entities.Invoice invoice)
         {
             throw new NotImplementedException();
         }

@@ -5,13 +5,13 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Api", "src\Invoice.Api\Invoice.Api.csproj", "{45052BCF-CF2D-C827-C863-031A15225DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Core", "src\Invoice.Core\Invoice.Core.csproj", "{36DB0BBE-AF39-4BA8-8D98-3CB25F846E8B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Infrastructure", "src\Invoice.Infrastructure\Invoice.Infrastructure.csproj", "{976DBF41-260B-4564-B596-FF062096745F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Application", "src\Invoice.Application\Invoice.Application.csproj", "{466E7E26-D04C-4C4B-A43D-E2E7B35FFF42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Tests", "tests\Invoice.Tests\Invoice.Tests.csproj", "{7E219247-F156-4725-AF18-49C7C82C03D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Domain", "src\Invoice.Domain\Invoice.Domain.csproj", "{A9DD240B-5EC0-2DBA-605C-FD3438F34FD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{45052BCF-CF2D-C827-C863-031A15225DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45052BCF-CF2D-C827-C863-031A15225DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45052BCF-CF2D-C827-C863-031A15225DAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36DB0BBE-AF39-4BA8-8D98-3CB25F846E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36DB0BBE-AF39-4BA8-8D98-3CB25F846E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36DB0BBE-AF39-4BA8-8D98-3CB25F846E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36DB0BBE-AF39-4BA8-8D98-3CB25F846E8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{976DBF41-260B-4564-B596-FF062096745F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{976DBF41-260B-4564-B596-FF062096745F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{976DBF41-260B-4564-B596-FF062096745F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{7E219247-F156-4725-AF18-49C7C82C03D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E219247-F156-4725-AF18-49C7C82C03D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E219247-F156-4725-AF18-49C7C82C03D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DD240B-5EC0-2DBA-605C-FD3438F34FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DD240B-5EC0-2DBA-605C-FD3438F34FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DD240B-5EC0-2DBA-605C-FD3438F34FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DD240B-5EC0-2DBA-605C-FD3438F34FD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

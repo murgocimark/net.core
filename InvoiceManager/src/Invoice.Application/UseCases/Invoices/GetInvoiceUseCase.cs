@@ -1,5 +1,5 @@
-﻿using Invoice.Core.Repositories;
-using Invoice.Core.Entities;
+﻿using Invoice.Domain.Repositories;
+using Invoice.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

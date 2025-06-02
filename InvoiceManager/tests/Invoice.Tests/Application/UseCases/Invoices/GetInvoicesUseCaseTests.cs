@@ -1,5 +1,5 @@
 using Moq;
-using Invoice.Core.Repositories;
+using Invoice.Domain.Repositories;
 using Invoice.Application.UseCases.Invoices;
 
 namespace Invoice.Tests;
@@ -12,7 +12,7 @@ public class GetInvoicesUseCaseTests
     {
         var mockRepo = new Mock<IInvoiceRepo>();
         var handler = new GetInvoicesUseCase(mockRepo.Object);
-        var expectedInvoices = new List<Invoice.Core.Entities.Invoice>();
+        var expectedInvoices = new List<Invoice.Domain.Entities.Invoice>();
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
         var invoices = handler.HandleAsync().Result;
@@ -25,7 +25,7 @@ public class GetInvoicesUseCaseTests
     {
         var mockRepo = new Mock<IInvoiceRepo>();
         var handler = new GetInvoicesUseCase(mockRepo.Object);
-        var expectedInvoices = new List<Invoice.Core.Entities.Invoice> { new Core.Entities.Invoice { Id = 0, CustomerName = "Test Customer" } };
+        var expectedInvoices = new List<Invoice.Domain.Entities.Invoice> { new Domain.Entities.Invoice { Id = 0, CustomerName = "Test Customer" } };
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
         var invoices = handler.HandleAsync().Result;

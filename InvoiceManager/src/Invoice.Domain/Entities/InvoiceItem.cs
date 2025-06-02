@@ -1,4 +1,4 @@
-﻿namespace Invoice.Core.Entities
+﻿namespace Invoice.Domain.Entities
 {
     public class InvoiceItem
     {

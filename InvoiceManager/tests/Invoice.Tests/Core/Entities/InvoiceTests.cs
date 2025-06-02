@@ -6,8 +6,8 @@ public class InvoiceTests
     [TestMethod]
     public void AddItem_ShouldIncreaseCountAndTotal()
     {        
-        var invoice = new Invoice.Core.Entities.Invoice();
-        var item = new Invoice.Core.Entities.InvoiceItem("Test Item", 2, 35.00m);
+        var invoice = new Invoice.Domain.Entities.Invoice();
+        var item = new Invoice.Domain.Entities.InvoiceItem("Test Item", 2, 35.00m);
      
         invoice.AddItem(item);
      
@@ -17,8 +17,8 @@ public class InvoiceTests
 
     public void RemoveItem_ShouldDecreaseCountAndTotal()
     {
-        var invoice = new Invoice.Core.Entities.Invoice();
-        var item = new Invoice.Core.Entities.InvoiceItem("Test Item", 1, 35.00m);
+        var invoice = new Invoice.Domain.Entities.Invoice();
+        var item = new Invoice.Domain.Entities.InvoiceItem("Test Item", 1, 35.00m);
 
         invoice.AddItem(item);
         invoice.RemoveItem(item.Id);

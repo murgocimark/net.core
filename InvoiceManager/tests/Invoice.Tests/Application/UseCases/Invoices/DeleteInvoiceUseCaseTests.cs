@@ -1,5 +1,5 @@
 using Invoice.Application.UseCases.Invoices;
-using Invoice.Core.Repositories;
+using Invoice.Domain.Repositories;
 using Moq;
 
 namespace Invoice.Tests;

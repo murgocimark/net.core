@@ -10,6 +10,6 @@ public class InvoiceItemTests
         int quantity = -1;
         decimal price = 10.00m;
      
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => new Invoice.Core.Entities.InvoiceItem(description, quantity, price));
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => new Invoice.Domain.Entities.InvoiceItem(description, quantity, price));
     }
 }

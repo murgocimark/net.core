@@ -8,8 +8,8 @@ public class GetInvoiceUseCasesTests
     [TestMethod]
     public void Handle_ShouldReturnInvoice_WithCorrectData()
     {        
-        var mockRepo = new Mock<Invoice.Core.Repositories.IInvoiceRepo>();
-        var expectedInvoice = new Invoice.Core.Entities.Invoice
+        var mockRepo = new Mock<Invoice.Domain.Repositories.IInvoiceRepo>();
+        var expectedInvoice = new Invoice.Domain.Entities.Invoice
         {
             Id = 1,
             CustomerName = "Test Customer",

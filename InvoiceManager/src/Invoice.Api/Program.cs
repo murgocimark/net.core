@@ -1,15 +1,37 @@
-var builder = WebApplication.CreateBuilder(args);
+using Invoice.Application.Configuration;
+using Invoice.Infrastructure.Configuration;
+using Serilog;
+using Microsoft.Extensions.Configuration;
+using Invoice.Infrastructure.Persistence;
 
-// Add services to the container.
+var config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+    .AddEnvironmentVariables()
+    .Build();
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(config)        
+    .CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddConfiguration(config);
+
+builder.Host.UseSerilog();
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+scope.ServiceProvider.GetRequiredService<SqliteDbInitializer>()
+        .Initialize();
+    
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoice.Core.Entities
+namespace Invoice.Domain.Entities
 {
     public class Invoice
     {

@@ -1,4 +1,4 @@
-﻿using Invoice.Core.Repositories;
+﻿using Invoice.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
