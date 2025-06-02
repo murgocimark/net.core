@@ -20,12 +20,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install tools (SonarScanner, Coverlet, ReportGenerator)
-        run: |
-          dotnet tool install --global dotnet-sonarscanner
-          dotnet tool install --global coverlet.console
-          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.23
-          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+      - name: Install Coverlet globally
+        run: dotnet tool install --global coverlet.console
+
+      - name: Add tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Restore dependencies
         run: dotnet restore InvoiceManager/InvoiceManager.sln
@@ -43,8 +42,8 @@ jobs:
       - name: Build solution
         run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore
 
-      - name: Run unit tests (without coverage)
-        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx --results-directory TestResults
+      - name: Run tests (no coverage, just TRX logs)
+        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx
 
       - name: Run Coverlet to collect OpenCover coverage
         run: |
@@ -53,15 +52,6 @@ jobs:
             --targetargs "test InvoiceManager/InvoiceManager.sln --no-build" \
             --format opencover \
             --output coverage/coverage.opencover.xml
-
-
-      - name: Convert Cobertura report to HTML
-        run: |
-          reportgenerator \
-            -reports:"coverage/coverage.cobertura.xml" \
-            -targetdir:"coverage-report" \
-            -reporttypes:Cobertura \
-            -verbosity:Info
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
