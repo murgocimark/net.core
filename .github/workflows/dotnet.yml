@@ -20,12 +20,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
       - name: Install ReportGenerator
         run: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.23
