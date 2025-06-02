@@ -1,46 +1,59 @@
-name: .NET
+name: Build, Test & Analyze with SonarCloud
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    types: [opened, synchronize, reopened]
+
 jobs:
   build:
+    name: Build and Analyze
     runs-on: ubuntu-latest
 
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: '8.0.x'
 
-      - name: Install SonarScanner
-        run: dotnet tool install --global dotnet-sonarscanner
+      - name: Install SonarCloud Scanner
+        uses: SonarSource/sonarcloud-github-action@v2
 
-      - name: Begin SonarCloud analysis
-        run: dotnet sonarscanner begin /k:"murgocimark_net.core" /o:"murgocimark" /d:sonar.cs.vstest.reportsPaths=**/TestResults/*.trx /d:sonar.cs.opencover.reportsPaths=**/coverage.cobertura.xml /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      - name: Install ReportGenerator
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.23
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Restore dependencies
         run: dotnet restore InvoiceManager/InvoiceManager.sln
 
-      - name: Build
-        run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore --configuration Release
+      - name: Begin SonarCloud analysis
+        run: |
+          dotnet sonarscanner begin \
+            /k:"murgocimark_net.core" \
+            /o:"murgocimark" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.opencover.reportsPaths="coverage/coverage.cobertura.xml" \
+            /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+
+      - name: Build solution
+        run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore
 
       - name: Run tests with coverage
-        run: dotnet test InvoiceManager/InvoiceManager.sln --collect:"XPlat Code Coverage" --logger:trx
-      
-      - name: Convert coverage to Sonar format
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.23
-        with:
-          reports: '**/coverage.cobertura.xml'
-          targetdir: 'coverage-report'
-          reporttypes: 'Cobertura'
+        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx --collect:"XPlat Code Coverage"
+
+      - name: Convert coverage to Cobertura
+        run: |
+          reportgenerator \
+            -reports:"**/coverage.cobertura.xml" \
+            -targetdir:"coverage-report" \
+            -reporttypes:Cobertura \
+            -verbosity:Info
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
