@@ -1,45 +1,40 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Build and analyze
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
-
+    name: Build and SonarCloud Analysis
     runs-on: ubuntu-latest
 
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     steps:
-    - uses: actions/checkout@v4        
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-      working-directory: InvoiceManager    
-    - name: Build
-      run: dotnet build --no-restore
-      working-directory: InvoiceManager
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      working-directory: InvoiceManager
-    - name: Test with coverage
-      run: dotnet test --no-build --configuration Debug --collect:"XPlat Code Coverage" --results-directory TestResults
-      working-directory: InvoiceManager
+      - uses: actions/checkout@v4
 
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v5.0.0
-      with:
-        projectKey: murgocimark_net.core
-        organization: murgocimark
-        token: ${{ secrets.SONAR_TOKEN }}
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
 
-    - name: Publish coverage report
-      run: |
-        echo "##vso[task.uploadsummary]TestResults/coverage.cobertura.xml"
+      - name: Install SonarScanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Begin SonarCloud analysis
+        run: dotnet sonarscanner begin /k:"your_project_key" /o:"your_org" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        working-directory: InvoiceManager
+
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: InvoiceManager
+
+      - name: Run tests
+        run: dotnet test --no-build --logger:trx
+        working-directory: InvoiceManager
+
+      - name: End SonarCloud analysis
+        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        working-directory: InvoiceManager
