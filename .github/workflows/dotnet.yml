@@ -33,7 +33,7 @@ jobs:
         run: dotnet build InvoiceManager/InvoiceManager.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx
+        run: dotnet test InvoiceManager/InvoiceManager.sln --logger:trx
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
