@@ -24,7 +24,7 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
 
       - name: Begin SonarCloud analysis
-        run: dotnet sonarscanner begin /k:"murgocimark_net.core" /o:"murgocimark" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        run: dotnet sonarscanner begin /k:"murgocimark_net.core" /o:"murgocimark" /d:sonar.cs.vstest.reportsPaths=**/TestResults/*.trx /d:sonar.cs.opencover.reportsPaths=**/coverage.cobertura.xml /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Restore dependencies
         run: dotnet restore InvoiceManager/InvoiceManager.sln
