@@ -46,13 +46,18 @@ jobs:
       - name: Run tests with coverage
         run: dotnet test InvoiceManager/InvoiceManager.sln --no-build --logger:trx --collect:"XPlat Code Coverage"
 
+      - name: Debug:List TestResults
+        run: find . -type f -name "*.xml"
+
+
       - name: Convert coverage to Cobertura
         run: |
           reportgenerator \
-            -reports:"**/coverage.cobertura.xml" \
+            -reports:"**/TestResults/*/coverage.cobertura.xml" \
             -targetdir:"coverage-report" \
             -reporttypes:Cobertura \
             -verbosity:Info
+
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
