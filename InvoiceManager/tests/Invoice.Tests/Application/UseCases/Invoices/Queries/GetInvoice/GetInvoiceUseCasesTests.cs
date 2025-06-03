@@ -14,8 +14,15 @@ public class GetInvoiceUseCasesTests
         {
             Id = 1,
             CustomerName = "Test Customer",
-            InvoiceDate = DateTime.Now
-        };
+            InvoiceDate = DateTime.Now,
+        };        
+        expectedInvoice.AddItem(new Domain.Entities.InvoiceItem
+        {
+            Id = 1,
+            Description = "Test Item",
+            Quantity = 2,
+            UnitPrice = 50.00m
+        });
         mockRepo.Setup(repo => repo.GetInvoiceAsync(1))
                 .ReturnsAsync(expectedInvoice);
         var handler = new GetInvoiceUseCase(mockRepo.Object);
@@ -24,6 +31,7 @@ public class GetInvoiceUseCasesTests
         Assert.IsNotNull(result);
         Assert.AreEqual(expectedInvoice.Id, result.Id);
         Assert.AreEqual(expectedInvoice.CustomerName, result.CustomerName);
+        Assert.IsTrue(result.Items.Any(item => item.Description == "Test Item" && item.Quantity == 2 && item.UnitPrice == 50.00m));
     }
 
     [TestMethod]
