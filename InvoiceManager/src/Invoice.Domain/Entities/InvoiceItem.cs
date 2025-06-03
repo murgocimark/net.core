@@ -25,5 +25,6 @@
             Quantity = quantity;
             UnitPrice = price;                    
         }
+        public InvoiceItem(){}
     }
 }

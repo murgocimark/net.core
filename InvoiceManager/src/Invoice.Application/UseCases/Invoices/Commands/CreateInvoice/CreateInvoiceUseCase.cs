@@ -14,7 +14,7 @@ namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
         {
             _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo), "Invoice repository cannot be null.");
         }
-        public async Task<int> HandleAsync(CreateInvoiceCommand command)
+        public async Task<int> ExecuteAsync(CreateInvoiceCommand command)
         {
             Domain.Entities.Invoice invoice = new()
             {

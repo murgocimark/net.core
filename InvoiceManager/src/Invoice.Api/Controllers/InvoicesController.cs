@@ -32,14 +32,14 @@ namespace Invoice.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var invoices = await _getAll.HandleAsync();
+            var invoices = await _getAll.ExecuteAsync();
             return Ok(invoices);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var invoice = await _getById.HandleAsync(id);
+            var invoice = await _getById.ExecuteAsync(id);
             if (invoice == null)
             {
                 return NotFound();
@@ -68,14 +68,14 @@ namespace Invoice.Api.Controllers
                 }).ToList()
             };
 
-            var createdInvoiceId = await _create.HandleAsync(command);
+            var createdInvoiceId = await _create.ExecuteAsync(command);
             return CreatedAtAction(nameof(Get), new { id = createdInvoiceId }, createdInvoiceId);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _delete.HandleAsync(id);
+            var result = await _delete.ExecuteAsync(id);
             if (!result)
             {
                 return NotFound();

@@ -16,7 +16,7 @@ public class GetInvoicesUseCaseTests
         var expectedInvoices = new List<Domain.Entities.Invoice>();
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
-        var invoices = handler.HandleAsync().Result;
+        var invoices = handler.ExecuteAsync().Result;
         Assert.IsNotNull(invoices);
         Assert.IsTrue(!invoices.Any());        
     }
@@ -29,7 +29,7 @@ public class GetInvoicesUseCaseTests
         var expectedInvoices = new List<Domain.Entities.Invoice> { new Domain.Entities.Invoice { Id = 0, CustomerName = "Test Customer" } };
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
-        var invoices = handler.HandleAsync().Result;
+        var invoices = handler.ExecuteAsync().Result;
         Assert.IsNotNull(invoices);
         Assert.IsTrue(invoices.Any());
         Assert.IsTrue(expectedInvoices[0].CustomerName == invoices.FirstOrDefault()?.CustomerName);

@@ -16,7 +16,7 @@ namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoice
         {
             _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo), "Invoice repository cannot be null.");
         }
-        public async Task<InvoiceDto> HandleAsync(int invoiceId)
+        public async Task<InvoiceDto> ExecuteAsync(int invoiceId)
         {
             if (invoiceId <= 0)
             {

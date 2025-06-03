@@ -20,7 +20,7 @@ public class GetInvoiceUseCasesTests
                 .ReturnsAsync(expectedInvoice);
         var handler = new GetInvoiceUseCase(mockRepo.Object);
         
-        var result = handler.HandleAsync(1).Result;
+        var result = handler.ExecuteAsync(1).Result;
         Assert.IsNotNull(result);
         Assert.AreEqual(expectedInvoice.Id, result.Id);
         Assert.AreEqual(expectedInvoice.CustomerName, result.CustomerName);

@@ -1,6 +1,6 @@
-@Invoice.Api_HostAddress = http://localhost:5054
+@Invoice.Api_HostAddress = https://localhost:7131
 
-GET {{Invoice.Api_HostAddress}}/weatherforecast/
+GET {{Invoice.Api_HostAddress}}/invoices/
 Accept: application/json
 
 ###

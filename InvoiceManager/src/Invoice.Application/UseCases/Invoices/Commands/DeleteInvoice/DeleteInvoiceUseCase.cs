@@ -14,7 +14,7 @@ namespace Invoice.Application.UseCases.Invoices.Commands.DeleteInvoice
         {
             _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
-        public async Task<bool> HandleAsync(int invoiceId)
+        public async Task<bool> ExecuteAsync(int invoiceId)
         {
             if (invoiceId <= 0)
             {

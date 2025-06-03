@@ -17,7 +17,7 @@ namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoices
             _invoiceRepo = invoiceRepo;
         }
 
-        public async Task<IEnumerable<InvoiceDto>> HandleAsync()
+        public async Task<IEnumerable<InvoiceDto>> ExecuteAsync()
         {
             var invoices = await _invoiceRepo.GetInvoicesAsync();
             return invoices.Select(invoice => new InvoiceDto

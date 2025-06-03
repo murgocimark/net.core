@@ -81,7 +81,7 @@ namespace Invoice.Infrastructure.Persistence
 
             const string sql = @"
                         select i.Id, i.CustomerName, i.InvoiceDate,
-                            ii.Id, ii.Description, ii.Quantity, ii.UnitPrice, ii.InvoiceId
+                            ii.Id, ii.Description, ii.Quantity, ii.UnitPrice
                         from Invoices i
                         left join InvoiceItems ii on i.Id = ii.InvoiceId
                         where i.Id = @id;";

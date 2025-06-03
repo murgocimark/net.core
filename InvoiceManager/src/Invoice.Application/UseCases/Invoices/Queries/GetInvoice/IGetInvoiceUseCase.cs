@@ -9,6 +9,6 @@ namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoice
 {
     public interface IGetInvoiceUseCase
     {
-        Task<InvoiceDto> HandleAsync(int invoiceId);
+        Task<InvoiceDto> ExecuteAsync(int invoiceId);
     }
 }
