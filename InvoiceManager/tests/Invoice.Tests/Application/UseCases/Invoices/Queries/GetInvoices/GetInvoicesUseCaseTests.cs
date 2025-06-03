@@ -1,8 +1,9 @@
 using Moq;
 using Invoice.Domain.Repositories;
 using Invoice.Application.UseCases.Invoices;
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoices;
 
-namespace Invoice.Tests;
+namespace Invoice.Tests.Application.UseCases.Invoices.Queries.GetInvoices;
 
 [TestClass]
 public class GetInvoicesUseCaseTests
@@ -12,7 +13,7 @@ public class GetInvoicesUseCaseTests
     {
         var mockRepo = new Mock<IInvoiceRepo>();
         var handler = new GetInvoicesUseCase(mockRepo.Object);
-        var expectedInvoices = new List<Invoice.Domain.Entities.Invoice>();
+        var expectedInvoices = new List<Domain.Entities.Invoice>();
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
         var invoices = handler.HandleAsync().Result;
@@ -25,12 +26,12 @@ public class GetInvoicesUseCaseTests
     {
         var mockRepo = new Mock<IInvoiceRepo>();
         var handler = new GetInvoicesUseCase(mockRepo.Object);
-        var expectedInvoices = new List<Invoice.Domain.Entities.Invoice> { new Domain.Entities.Invoice { Id = 0, CustomerName = "Test Customer" } };
+        var expectedInvoices = new List<Domain.Entities.Invoice> { new Domain.Entities.Invoice { Id = 0, CustomerName = "Test Customer" } };
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
         var invoices = handler.HandleAsync().Result;
         Assert.IsNotNull(invoices);
         Assert.IsTrue(invoices.Any());
-        Assert.IsTrue(expectedInvoices[0].CustomerName == invoices.FirstOrDefault().CustomerName);
+        Assert.IsTrue(expectedInvoices[0].CustomerName == invoices.FirstOrDefault()?.CustomerName);
     }
 }

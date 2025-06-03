@@ -1,7 +1,13 @@
 using Invoice.Domain.Repositories;
+using Invoice.Application.UseCases.Invoices.Commands.CreateInvoice;
+using Invoice.Application.DTOs;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Invoice.Tests;
+namespace Invoice.Tests.Application.UseCases.Invoices.Commands.CreateInvoice;
 
 [TestClass]
 public class CreateInvoiceUseCaseTests
@@ -12,20 +18,20 @@ public class CreateInvoiceUseCaseTests
         var mockRepo = new Mock<IInvoiceRepo>();
         mockRepo.Setup(repo => repo.AddInvoiceAsync(It.IsAny<Domain.Entities.Invoice>()))
                 .Returns(Task.FromResult(0));
-        var handler = new Invoice.Application.UseCases.Invoices.CreateInvoiceUseCase(mockRepo.Object);
-        var command = new Invoice.Application.UseCases.Invoices.CreateInvoiceCommand
+        var handler = new CreateInvoiceUseCase(mockRepo.Object);
+        var command = new CreateInvoiceCommand
         {
             CustomerName = "Test Customer",
             InvoiceDate = DateTime.Now,
-            Items = new List<Invoice.Application.DTOs.InvoiceItemDto>
+            Items = new List<InvoiceItemDto>
             {
-                new Invoice.Application.DTOs.InvoiceItemDto
+                new InvoiceItemDto
                 {
                     Description = "Item 1",
                     Quantity = 2,
                     UnitPrice = 50.00m
                 },
-                new Invoice.Application.DTOs.InvoiceItemDto
+                new InvoiceItemDto
                 {
                     Description = "Item 2",
                     Quantity = 1,

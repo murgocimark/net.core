@@ -1,4 +1,7 @@
-﻿using Invoice.Application.UseCases.Invoices;
+﻿using Invoice.Application.UseCases.Invoices.Commands.CreateInvoice;
+using Invoice.Application.UseCases.Invoices.Commands.DeleteInvoice;
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoice;
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoices;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoice.Application.UseCases.Invoices
+namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
 {
     public class CreateInvoiceUseCase : ICreateInvoiceUseCase
     {
@@ -16,7 +16,7 @@ namespace Invoice.Application.UseCases.Invoices
         }
         public async Task<int> HandleAsync(CreateInvoiceCommand command)
         {
-            Invoice.Domain.Entities.Invoice invoice = new()
+            Domain.Entities.Invoice invoice = new()
             {
                 CustomerName = command.CustomerName,
                 InvoiceDate = command.InvoiceDate

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Invoice.Application.DTOs;
 
-namespace Invoice.Application.UseCases.Invoices
+namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoice
 {
     public class GetInvoiceUseCase : IGetInvoiceUseCase
     {

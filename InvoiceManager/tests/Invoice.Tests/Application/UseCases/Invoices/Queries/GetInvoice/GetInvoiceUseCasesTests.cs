@@ -1,6 +1,7 @@
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoice;
 using Moq;
 
-namespace Invoice.Tests;
+namespace Invoice.Tests.Application.UseCases.Invoices.Queries.GetInvoice;
 
 [TestClass]
 public class GetInvoiceUseCasesTests
@@ -8,8 +9,8 @@ public class GetInvoiceUseCasesTests
     [TestMethod]
     public void Handle_ShouldReturnInvoice_WithCorrectData()
     {        
-        var mockRepo = new Mock<Invoice.Domain.Repositories.IInvoiceRepo>();
-        var expectedInvoice = new Invoice.Domain.Entities.Invoice
+        var mockRepo = new Mock<Domain.Repositories.IInvoiceRepo>();
+        var expectedInvoice = new Domain.Entities.Invoice
         {
             Id = 1,
             CustomerName = "Test Customer",
@@ -17,7 +18,7 @@ public class GetInvoiceUseCasesTests
         };
         mockRepo.Setup(repo => repo.GetInvoiceAsync(1))
                 .ReturnsAsync(expectedInvoice);
-        var handler = new Invoice.Application.UseCases.Invoices.GetInvoiceUseCase(mockRepo.Object);
+        var handler = new GetInvoiceUseCase(mockRepo.Object);
         
         var result = handler.HandleAsync(1).Result;
         Assert.IsNotNull(result);

@@ -1,6 +1,9 @@
 ﻿using Invoice.Api.DTOs;
 using Invoice.Application.DTOs;
-using Invoice.Application.UseCases.Invoices;
+using Invoice.Application.UseCases.Invoices.Commands.CreateInvoice;
+using Invoice.Application.UseCases.Invoices.Commands.DeleteInvoice;
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoice;
+using Invoice.Application.UseCases.Invoices.Queries.GetInvoices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice.Api.Controllers

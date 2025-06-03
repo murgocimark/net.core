@@ -8,3 +8,5 @@
 # Build results
 bin/
 obj/
+.sonarqube/
+**/TestResults/

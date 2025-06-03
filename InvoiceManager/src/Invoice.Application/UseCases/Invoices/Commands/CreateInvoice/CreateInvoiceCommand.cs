@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoice.Application.UseCases.Invoices
+namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
 {
     public class CreateInvoiceCommand
     {

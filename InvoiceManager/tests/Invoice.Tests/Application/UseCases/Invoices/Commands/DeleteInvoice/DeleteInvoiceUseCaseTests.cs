@@ -1,8 +1,11 @@
 using Invoice.Application.UseCases.Invoices;
+using Invoice.Application.UseCases.Invoices.Commands.DeleteInvoice;
 using Invoice.Domain.Repositories;
 using Moq;
+using System;
+using System.Threading.Tasks;
 
-namespace Invoice.Tests;
+namespace Invoice.Tests.Application.UseCases.Invoices.Commands.DeleteInvoice;
 
 [TestClass]
 public class DeleteInvoiceUseCaseTests
