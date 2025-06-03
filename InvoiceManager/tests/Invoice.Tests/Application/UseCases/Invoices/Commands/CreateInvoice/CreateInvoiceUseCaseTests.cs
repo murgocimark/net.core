@@ -17,7 +17,7 @@ public class CreateInvoiceUseCaseTests
     {
         var mockRepo = new Mock<IInvoiceRepo>();
         mockRepo.Setup(repo => repo.AddInvoiceAsync(It.IsAny<Domain.Entities.Invoice>()))
-                .Returns(Task.FromResult(0));
+                .Returns(Task.FromResult(10));
         var handler = new CreateInvoiceUseCase(mockRepo.Object);
         var command = new CreateInvoiceCommand
         {
@@ -48,5 +48,6 @@ public class CreateInvoiceUseCaseTests
             inv.Items.Any(item => item.Description == "Item 1" && item.Quantity == 2 && item.UnitPrice == 50.00m) &&
             inv.Items.Any(item => item.Description == "Item 2" && item.Quantity == 1 && item.UnitPrice == 100.00m)
         )), Times.Once);
+        Assert.AreEqual(10, newInvoiceID);
     }
 }

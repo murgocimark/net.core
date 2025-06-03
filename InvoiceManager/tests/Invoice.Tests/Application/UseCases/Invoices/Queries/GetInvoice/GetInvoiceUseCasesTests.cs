@@ -25,4 +25,14 @@ public class GetInvoiceUseCasesTests
         Assert.AreEqual(expectedInvoice.Id, result.Id);
         Assert.AreEqual(expectedInvoice.CustomerName, result.CustomerName);
     }
+
+    [TestMethod]
+    public void Handle_ShouldThrowArgumentException_WhenInvoiceIdIsZeroOrNegative()
+    {
+        var mockRepo = new Mock<Domain.Repositories.IInvoiceRepo>();
+        var handler = new GetInvoiceUseCase(mockRepo.Object);
+
+        Assert.ThrowsExceptionAsync<ArgumentException>(() => handler.ExecuteAsync(0));
+        Assert.ThrowsExceptionAsync<ArgumentException>(() => handler.ExecuteAsync(-1));
+    }
 }
