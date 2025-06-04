@@ -1,9 +1,4 @@
 ﻿using Invoice.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
 {
@@ -24,7 +19,7 @@ namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
                 invoice.AddItem(new Domain.Entities.InvoiceItem(item.Description, item.Quantity, item.UnitPrice));
             }
 
-            return await _invoiceRepo.AddInvoiceAsync(invoice);            
+            return await _invoiceRepo.AddInvoiceAsync(invoice);
         }
     }
 }

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Invoice.Domain.Entities
+﻿namespace Invoice.Domain.Entities
 {
     public class Invoice
     {
-        public int Id { get; set; }        
+        public int Id { get; set; }
         required public string CustomerName { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
@@ -20,7 +13,7 @@ namespace Invoice.Domain.Entities
             _items.Add(item);
             TotalAmount += item.Amount;
         }
-        public void RemoveItem(int _id)            
+        public void RemoveItem(int _id)
         {
             var item = _items.FirstOrDefault(i => i.Id == _id);
             if (item == null)

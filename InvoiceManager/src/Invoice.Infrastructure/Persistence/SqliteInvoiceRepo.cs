@@ -1,13 +1,6 @@
-﻿using Invoice.Domain.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using Dapper;
+using Invoice.Domain.Repositories;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
-using Invoice.Domain.Entities;
-using System.Transactions;
 
 namespace Invoice.Infrastructure.Persistence
 {
@@ -19,7 +12,7 @@ namespace Invoice.Infrastructure.Persistence
             _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
         }
         public async Task<int> AddInvoiceAsync(Domain.Entities.Invoice invoice)
-        {            
+        {
             if (_dbConnection.State != ConnectionState.Open)
             {
                 _dbConnection.Open();
@@ -64,7 +57,7 @@ namespace Invoice.Infrastructure.Persistence
                     transaction.Rollback();
                     throw;
                 }
-            }            
+            }
         }
 
         public Task<bool> DeleteInvoiceAsync(int id)
@@ -89,11 +82,11 @@ namespace Invoice.Infrastructure.Persistence
             var invoiceDict = new Dictionary<int, Domain.Entities.Invoice>();
 
             var invoice = await _dbConnection.QueryAsync<Domain.Entities.Invoice, Domain.Entities.InvoiceItem, Domain.Entities.Invoice>(sql,
-                (invoice, item) => 
+                (invoice, item) =>
                 {
                     if (!invoiceDict.TryGetValue(invoice.Id, out var currentInvoice))
                     {
-                        currentInvoice = invoice;                        
+                        currentInvoice = invoice;
                         invoiceDict.Add(invoice.Id, currentInvoice);
                     }
 
@@ -106,12 +99,12 @@ namespace Invoice.Infrastructure.Persistence
                 },
                 new { id });
 
-            
+
             return invoiceDict.Values.FirstOrDefault() ?? throw new KeyNotFoundException($"Invoice with ID {id} not found.");
         }
 
         public async Task<IEnumerable<Domain.Entities.Invoice>> GetInvoicesAsync()
-        {            
+        {
             if (_dbConnection.State != ConnectionState.Open)
             {
                 _dbConnection.Open();

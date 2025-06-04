@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Invoice.Domain.Repositories
+﻿namespace Invoice.Domain.Repositories
 {
     public interface IInvoiceRepo
     {
@@ -12,6 +6,6 @@ namespace Invoice.Domain.Repositories
         Task<IEnumerable<Entities.Invoice>> GetInvoicesAsync();
         Task<int> AddInvoiceAsync(Entities.Invoice invoice);
         Task UpdateInvoiceAsync(Entities.Invoice invoice);
-        Task<bool> DeleteInvoiceAsync(int id);        
+        Task<bool> DeleteInvoiceAsync(int id);
     }
 }

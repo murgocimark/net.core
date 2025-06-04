@@ -1,8 +1,7 @@
 using Invoice.Application.Configuration;
 using Invoice.Infrastructure.Configuration;
-using Serilog;
-using Microsoft.Extensions.Configuration;
 using Invoice.Infrastructure.Persistence;
+using Serilog;
 
 var config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -12,7 +11,7 @@ var config = new ConfigurationBuilder()
     .Build();
 
 Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(config)        
+    .ReadFrom.Configuration(config)
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,9 +28,9 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
-scope.ServiceProvider.GetRequiredService<SqliteDbInitializer>()
-        .Initialize();
-    
+    scope.ServiceProvider.GetRequiredService<SqliteDbInitializer>()
+            .Initialize();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

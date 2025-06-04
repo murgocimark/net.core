@@ -5,7 +5,7 @@ namespace Invoice.Api.DTOs
     public class CreateInvoiceItemRequest
     {
         [Required]
-        public string Description { get; set; }
+        public required string Description { get; set; }
 
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
         public decimal Price { get; set; }

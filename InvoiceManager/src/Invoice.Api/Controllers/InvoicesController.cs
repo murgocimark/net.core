@@ -10,24 +10,16 @@ namespace Invoice.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InvoicesController : Controller
+    public class InvoicesController(
+        ICreateInvoiceUseCase create,
+        IDeleteInvoiceUseCase delete,
+        IGetInvoicesUseCase getAll,
+        IGetInvoiceUseCase getById) : Controller
     {
-        private readonly ICreateInvoiceUseCase _create;
-        private readonly IDeleteInvoiceUseCase _delete;
-        private readonly IGetInvoicesUseCase _getAll;
-        private readonly IGetInvoiceUseCase _getById;
-
-        public InvoicesController(
-            ICreateInvoiceUseCase create,
-            IDeleteInvoiceUseCase delete,
-            IGetInvoicesUseCase getAll,
-            IGetInvoiceUseCase getById)
-        {
-            _create = create;
-            _delete = delete;
-            _getAll = getAll;
-            _getById = getById;
-        }
+        private readonly ICreateInvoiceUseCase _create = create;
+        private readonly IDeleteInvoiceUseCase _delete = delete;
+        private readonly IGetInvoicesUseCase _getAll = getAll;
+        private readonly IGetInvoiceUseCase _getById = getById;
 
         [HttpGet]
         public async Task<IActionResult> Get()

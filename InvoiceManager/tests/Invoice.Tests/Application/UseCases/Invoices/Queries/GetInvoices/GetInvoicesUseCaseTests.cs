@@ -1,7 +1,6 @@
-using Moq;
-using Invoice.Domain.Repositories;
-using Invoice.Application.UseCases.Invoices;
 using Invoice.Application.UseCases.Invoices.Queries.GetInvoices;
+using Invoice.Domain.Repositories;
+using Moq;
 
 namespace Invoice.Tests.Application.UseCases.Invoices.Queries.GetInvoices;
 
@@ -18,9 +17,9 @@ public class GetInvoicesUseCaseTests
 
         var invoices = handler.ExecuteAsync().Result;
         Assert.IsNotNull(invoices);
-        Assert.IsTrue(!invoices.Any());        
+        Assert.IsTrue(!invoices.Any());
     }
-    
+
     [TestMethod]
     public void Handle_ShouldReturnOneItem()
     {
@@ -31,8 +30,8 @@ public class GetInvoicesUseCaseTests
             Id = 0,
             CustomerName = "Test Customer"
         };
-        invoice.AddItem(new Domain.Entities.InvoiceItem { Description = "item 1", Quantity = 3, UnitPrice = 10m } );
-        var expectedInvoices = new List<Domain.Entities.Invoice> { invoice };            
+        invoice.AddItem(new Domain.Entities.InvoiceItem { Description = "item 1", Quantity = 3, UnitPrice = 10m });
+        var expectedInvoices = new List<Domain.Entities.Invoice> { invoice };
         mockRepo.Setup(r => r.GetInvoicesAsync()).ReturnsAsync(expectedInvoices);
 
         var invoices = handler.ExecuteAsync().Result.ToList();
