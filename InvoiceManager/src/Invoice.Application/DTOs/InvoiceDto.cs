@@ -6,6 +6,6 @@
         public required string CustomerName { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
-        public List<InvoiceItemDto> Items { get; set; } = new List<InvoiceItemDto>();
+        public List<InvoiceItemDto> Items { get; set; } = [];
     }
 }

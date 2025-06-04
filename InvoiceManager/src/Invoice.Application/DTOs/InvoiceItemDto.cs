@@ -6,6 +6,6 @@
         public required string Description { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal Amount;
+        public decimal Amount{ get; }
     }
 }

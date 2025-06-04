@@ -81,7 +81,7 @@ namespace Invoice.Infrastructure.Persistence
 
             var invoiceDict = new Dictionary<int, Domain.Entities.Invoice>();
 
-            var invoice = await _dbConnection.QueryAsync<Domain.Entities.Invoice, Domain.Entities.InvoiceItem, Domain.Entities.Invoice>(sql,
+            await _dbConnection.QueryAsync<Domain.Entities.Invoice, Domain.Entities.InvoiceItem, Domain.Entities.Invoice>(sql,
                 (invoice, item) =>
                 {
                     if (!invoiceDict.TryGetValue(invoice.Id, out var currentInvoice))
