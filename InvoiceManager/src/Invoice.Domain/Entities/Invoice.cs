@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Invoice.Domain.Entities
 {
     public class Invoice
     {
-        public int Id { get; set; }
-        public string CustomerName { get; set; }
+        public int Id { get; set; }        
+        required public string CustomerName { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
         private readonly List<InvoiceItem> _items = new();

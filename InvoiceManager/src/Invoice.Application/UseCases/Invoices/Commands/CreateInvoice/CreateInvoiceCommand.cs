@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
 {
     public class CreateInvoiceCommand
-    {
-        [Required]
+    {        
         public required string CustomerName { get; set; }
 
         [MinLength(1)]

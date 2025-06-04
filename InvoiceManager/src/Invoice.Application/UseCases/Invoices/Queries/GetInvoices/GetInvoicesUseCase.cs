@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoices
 {
-    public class GetInvoicesUseCase : IGetInvoicesUseCase
+    public class GetInvoicesUseCase(IInvoiceRepo invoiceRepo) : IGetInvoicesUseCase
     {
-        private readonly IInvoiceRepo _invoiceRepo;
-
-        public GetInvoicesUseCase(IInvoiceRepo invoiceRepo)
-        {
-            _invoiceRepo = invoiceRepo;
-        }
+        private readonly IInvoiceRepo _invoiceRepo = invoiceRepo;
 
         public async Task<IEnumerable<InvoiceDto>> ExecuteAsync()
         {
@@ -31,9 +26,9 @@ namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoices
                     Id = item.Id,
                     Description = item.Description,
                     Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice                    
+                    UnitPrice = item.UnitPrice
                 }).ToList()
-            });
+            }).ToList();
         }
     }
 }

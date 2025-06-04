@@ -9,13 +9,10 @@ using Invoice.Application.DTOs;
 
 namespace Invoice.Application.UseCases.Invoices.Queries.GetInvoice
 {
-    public class GetInvoiceUseCase : IGetInvoiceUseCase
+    public class GetInvoiceUseCase(IInvoiceRepo repo) : IGetInvoiceUseCase
     {
-        private readonly IInvoiceRepo _invoiceRepo;
-        public GetInvoiceUseCase(IInvoiceRepo repo)
-        {
-            _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo), "Invoice repository cannot be null.");
-        }
+        private readonly IInvoiceRepo _invoiceRepo = repo;
+
         public async Task<InvoiceDto> ExecuteAsync(int invoiceId)
         {
             if (invoiceId <= 0)

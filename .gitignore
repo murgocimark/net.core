@@ -10,3 +10,5 @@ bin/
 obj/
 .sonarqube/
 **/TestResults/
+/InvoiceManager/generate_coverage_report.bat
+/InvoiceManager/coverage-report

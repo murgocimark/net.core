@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.UseCases.Invoices.Commands.DeleteInvoice
 {
-    public class DeleteInvoiceUseCase : IDeleteInvoiceUseCase
+    public class DeleteInvoiceUseCase(IInvoiceRepo repo) : IDeleteInvoiceUseCase
     {
-        private readonly IInvoiceRepo _invoiceRepo;
-        public DeleteInvoiceUseCase(IInvoiceRepo repo)
-        {
-            _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo));
-        }
+        private readonly IInvoiceRepo _invoiceRepo = repo;
+
         public async Task<bool> ExecuteAsync(int invoiceId)
         {
             if (invoiceId <= 0)

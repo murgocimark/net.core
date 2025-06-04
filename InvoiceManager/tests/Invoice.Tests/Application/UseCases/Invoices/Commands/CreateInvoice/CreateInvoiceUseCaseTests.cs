@@ -23,8 +23,8 @@ public class CreateInvoiceUseCaseTests
         {
             CustomerName = "Test Customer",
             InvoiceDate = DateTime.Now,
-            Items = new List<InvoiceItemDto>
-            {
+            Items =
+            [
                 new InvoiceItemDto
                 {
                     Description = "Item 1",
@@ -37,7 +37,7 @@ public class CreateInvoiceUseCaseTests
                     Quantity = 1,
                     UnitPrice = 100.00m
                 }
-            }
+            ]
         };
 
         var newInvoiceID = await handler.ExecuteAsync(command);

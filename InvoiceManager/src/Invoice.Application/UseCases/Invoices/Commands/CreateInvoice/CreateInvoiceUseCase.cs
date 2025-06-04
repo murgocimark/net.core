@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.UseCases.Invoices.Commands.CreateInvoice
 {
-    public class CreateInvoiceUseCase : ICreateInvoiceUseCase
+    public class CreateInvoiceUseCase(IInvoiceRepo repo) : ICreateInvoiceUseCase
     {
-        private readonly IInvoiceRepo _invoiceRepo;
-        public CreateInvoiceUseCase(IInvoiceRepo repo)
-        {
-            _invoiceRepo = repo ?? throw new ArgumentNullException(nameof(repo), "Invoice repository cannot be null.");
-        }
+        private readonly IInvoiceRepo _invoiceRepo = repo;
+
         public async Task<int> ExecuteAsync(CreateInvoiceCommand command)
         {
             Domain.Entities.Invoice invoice = new()
